@@ -1,0 +1,21 @@
+[tasks.build]
+description = 'Build the CLI for distribution'
+run = """
+#/bin/env sh
+PACKAGE="corepass"
+VERSION="1.0.0"
+TARGETS=$(go tool dist list | grep -E "(darwin|linux|windows)/(amd64|arm64)" | tr "/" "_")
+
+rm -f dist/*
+for target in $TARGETS; do
+    go build -o "dist/${PACKAGE}" -ldflags "-w -s"
+    zip --junk-paths "dist/${PACKAGE}_${VERSION}_${target}.zip" "dist/${PACKAGE}"
+    rm dist/${PACKAGE}
+done
+"""
+
+[tasks.dev]
+run = "wgo run main.go"
+
+[tasks.update]
+run = "go get -u && go mod tidy"
