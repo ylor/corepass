@@ -24,7 +24,7 @@ riplog6-Dyskiv-jogmeb
 
 ### What do you mean chunkable?
 
-- Phrases are constructed into pronouncable syllables by using consonant, vowel, consonant patterns and separated by hyphens. Read more about this pattern [here](https://rmondello.com/2024/10/07/apple-passwords-generated-strong-password-format/).
+- Pronouncable syllables construct memorable phrases by using a consonant, vowel, consonant pattern. Phrases are separated by hyphens to allow for intuitive chunking. Read more about this pattern [here](https://rmondello.com/2024/10/07/apple-passwords-generated-strong-password-format/).
 
 ### What's with the name?
 
