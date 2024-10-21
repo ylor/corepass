@@ -36,7 +36,7 @@ riplog6-Dyskiv-jogmeb
 
 ### Why did you _really_ make this?
 
-- Due to [sickness](https://playvalorant.com), I frequently hop between systems and found myself wanting to generate this kind of password on any OS.
+- Due to [brainrot](https://playvalorant.com), I frequently hop between systems and found myself wanting to generate this kind of password on any OS.
 
 ### Is it good?
 
