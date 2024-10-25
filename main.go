@@ -22,18 +22,9 @@ var (
 	phrase    []string
 )
 
-func randomNum(max int64) int64 {
-	n, err := rand.Int(rand.Reader, big.NewInt(max))
-	if err != nil {
-		panic(err)
-	}
-	// fmt.Println(n)
-	return n.Int64()
-}
+func randomNum(max int) int64 {
+	n, err := rand.Int(rand.Reader, big.NewInt(int64(max)))
 
-func randomIndex(slice []string) int64 {
-	max := big.NewInt(int64(len(slice)))
-	n, err := rand.Int(rand.Reader, max)
 	if err != nil {
 		panic(err)
 	}
@@ -41,16 +32,13 @@ func randomIndex(slice []string) int64 {
 }
 
 func randomChar(chars string) string {
-	max := big.NewInt(int64(len(chars)))
-	n, err := rand.Int(rand.Reader, max)
-	if err != nil {
-		panic(err)
-	}
-	return string(chars[n.Int64()])
+	i := randomNum(len(chars))
+	return string(chars[i])
 }
 
 func generateWord(syllables int) string {
 	var word string
+
 	for range syllables {
 		word += randomChar(c)
 		word += randomChar(v)
@@ -59,23 +47,24 @@ func generateWord(syllables int) string {
 	return word
 }
 
-func capitalizePhrase(p []string) []string {
-	w := randomIndex(p)
-	p[w] = strings.ToUpper(p[w][:1]) + p[w][1:]
-	return p
+func addUpper(slice []string) []string {
+	i := randomNum(len(slice))
+
+	slice[i] = strings.ToUpper(slice[i][:1]) + slice[i][1:]
+	return slice
 }
 
-func addNum(p []string) []string {
-	numberedWordIndex := randomIndex(p)
-	randomNumber := randomNum(9)
+func addNum(slice []string) []string {
+	i := randomNum(len(slice))
+	n := randomNum(9) + 1
+	b := randomNum(2) == 0
 
-	if numberedWordIndex == 0 || numberedWordIndex == int64(len(phrase)-1) || randomNumber == 0 {
-		p[numberedWordIndex] += strconv.FormatInt(randomNumber, 10)
+	if i == 0 || i == int64(len(phrase)-1) || b {
+		slice[i] += strconv.FormatInt(n, 10)
 	} else {
-		p[numberedWordIndex] = strconv.FormatInt(randomNumber, 10) + p[numberedWordIndex]
+		slice[i] = strconv.FormatInt(n, 10) + slice[i]
 	}
-
-	return p
+	return slice
 }
 
 func main() {
@@ -96,7 +85,7 @@ func main() {
 		wg.Wait()
 	}
 
-	phrase = capitalizePhrase(phrase)
+	phrase = addUpper(phrase)
 	phrase = addNum(phrase)
 
 	// fmt.Println(phrase)
