@@ -27,7 +27,7 @@ func HandleFlags() {
 
 A tool to generate secure and memorably chunkable passwords
 flags:
-    -h, --help       Display help
+    -h, --help      Display help
     -s, --strong    Generate a password with 71 bits of entropy`)
 			os.Exit(0)
 		}

@@ -67,12 +67,15 @@ func addNum(slice []string) []string {
 	return slice
 }
 
-func main() {
+func init() {
 	cli.HandleFlags()
-
+	
 	if cli.Preference_StrongPassword {
 		words = 3
 	}
+}
+
+func main() {
 
 	for range words {
 		var wg sync.WaitGroup

@@ -6,7 +6,7 @@ description = 'Build the CLI for distribution'
 run = """
 #/bin/env sh
 PACKAGE="corepass"
-VERSION="1.1.0"
+VERSION="1.1.1"
 TARGETS=$(go tool dist list | grep -E "(darwin|linux|windows)/(amd64|arm64)" | tr "/" "_")
 
 rm -f dist/*
