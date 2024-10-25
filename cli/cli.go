@@ -9,27 +9,33 @@ import (
 var Preference_StrongPassword bool = false
 
 func HandleFlags() {
-	if len(os.Args) >= 2 {
-		h := flag.Bool("h", false, "Display help")
-		help := flag.Bool("help", false, "Display help")
+	h := flag.Bool("h", false, "Display help")
+	help := flag.Bool("help", false, "Display help")
 
-		s := flag.Bool("s", false, "Generate stronger password")
-		strong := flag.Bool("strong", false, "Generate stronger password")
+	s := flag.Bool("s", false, "Generate a password with 71 bits of entropy")
+	strong := flag.Bool("strong", false, "Generate a password with 71 bits of entropy")
 
-		flag.Parse()
+	v := flag.Bool("v", false, "Print version")
+	version := flag.Bool("version", false, "Print version")
 
-		if *s || *strong {
-			Preference_StrongPassword = true
-		}
+	flag.Parse()
 
-		if *h || *help {
-			fmt.Println(`Usage: corepass [flags]
+	if *s || *strong {
+		Preference_StrongPassword = true
+	}
+
+	if *v || *version {
+		fmt.Println("corepass, version 1.1.1")
+		os.Exit(0)
+	}
+
+	if *h || *help {
+		fmt.Println(`Usage: corepass [flags]
 
 A tool to generate secure and memorably chunkable passwords
 flags:
     -h, --help      Display help
     -s, --strong    Generate a password with 71 bits of entropy`)
-			os.Exit(0)
-		}
+		os.Exit(0)
 	}
 }
