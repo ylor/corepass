@@ -1,21 +1,32 @@
 [tasks.build]
+run = "tinygo build -o corepass"
+
+[tasks.dist]
 description = 'Build the CLI for distribution'
 run = """
 #/bin/env sh
 PACKAGE="corepass"
-VERSION="1.0.0"
+VERSION="1.1.0"
 TARGETS=$(go tool dist list | grep -E "(darwin|linux|windows)/(amd64|arm64)" | tr "/" "_")
 
 rm -f dist/*
 for target in $TARGETS; do
-    go build -o "dist/${PACKAGE}" -ldflags "-w -s"
-    zip --junk-paths "dist/${PACKAGE}_${VERSION}_${target}.zip" "dist/${PACKAGE}"
-    rm dist/${PACKAGE}
+    GOOS=$(echo ${target} | cut -d "_" -f 1)
+    GOARCH=$(echo ${target} | cut -d "_" -f 2)
+    BINARY=${PACKAGE}
+
+    if [ $GOOS = "windows" ]; then
+        BINARY="${BINARY}.exe"
+    fi
+
+    env GOOS=${GOOS} GOARCH=${GOARCH} go build -o "dist/${BINARY}"
+    zip --junk-paths "dist/${PACKAGE}_${VERSION}_${target}.zip" "dist/${BINARY}"
+    rm dist/${BINARY}
 done
 """
 
 [tasks.dev]
-run = "wgo run main.go"
+run = "go install github.com/bokwoon95/wgo@latest && wgo run main.go"
 
 [tasks.update]
 run = "go get -u && go mod tidy"

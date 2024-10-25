@@ -1,10 +1,8 @@
 # corepass - generate chunkable passwords
 
-corepass is a password generator that does [one thing well](https://en.wikipedia.org/wiki/Unix_philosophy): generate secure and chunkable passwords.
+corepass [does one thing well](https://en.wikipedia.org/wiki/Unix_philosophy): generate secure and chunkable passwords.
 
 ## Usage
-
-Download the release for your operating system and architecture and invoke:
 
 ```
 ➜ corepass
